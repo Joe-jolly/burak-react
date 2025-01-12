@@ -13,7 +13,7 @@ function App() {
           </Typography>
         </Box>
         <Box>
-          <RippleBadge badgeContent={4}>
+          <RippleBadge badgeContent={5}>
             <Button variant="contained">Contained</Button>
           </RippleBadge>
         </Box>
