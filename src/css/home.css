@@ -277,7 +277,7 @@
     height: 693px;
     display: flex;
     overflow: hidden;
-    transform: perspective(8px);
+    transform: perspective(0px);
     box-shadow: -3px 0px 20px 14px #34343480;
 }
 
@@ -286,6 +286,87 @@
     background: #0c0e12;
     display: flex;
     box-shadow: 0px -8px 90px rgb (215 215 255);
-    transform: scale (1.5);
+    transform: scale(1.5);
     overflow: hidden;
+}
+
+
+/* ACTIVE USERS */
+
+.homepage .active-users-frame {
+    width: 100%;
+    height: 605px;
+    display: flex;
+    background: rgb(248, 248, 255);
+}
+
+.homepage .active-users-frameme .active-users-section {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homepage .active-users-frame .active-users-section .section-title {
+    font-family: Poppins;
+    font-size: 36px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 4%;
+    text-align: center;
+    margin-top: 93px;
+    color: rgb(0, 0, 0);
+}
+
+.homepage .active-users-frame .active-users-section .cards-frame {
+    width: 100%;
+    margin-top: 42px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.homepage .active-users-frame .active-users-section .cards-frame .card {
+   height: 335px;
+    width: 290px;
+    cursor: pointer;
+}
+
+.homepage .active-users-frame .active-users-section .cards-frame .card:hover {
+    height: 345px;
+    width: 300px;
+    cursor: pointer;
+ }
+
+ .homepage .active-users-frame .active-users-section .cards-frame .title {
+    width: 65px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.homepage .active-users-frame .active-users-section .section-title {
+    font-family: Poppins;
+    font-size: 36px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 4%;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.homepage .active-users-frame .active-users-section .cards-frame .no-data {
+    width: 100%;
+    height: 308px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    Line-height: 34px;
+    color: #e3c08d;
 }
