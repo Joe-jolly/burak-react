@@ -116,6 +116,7 @@
             rgba(0, 0, 0, 0.9),
             rgba(0, 0, 0, 0) 500px
         );
+        transition: all 0.3s ease;
 }
 
 .homepage .popular-dishes-frame .popular-section .cards-frame .no-data {
@@ -179,6 +180,7 @@
     height: 345px;
      width: 300px;
      cursor: pointer;
+     transition: all 0.3s ease;
  }
 
 .homepage .new-dishes-frame .new-dishes-section .cards-frame .card .dish-sale {
@@ -337,6 +339,7 @@
     height: 345px;
     width: 300px;
     cursor: pointer;
+    transition: all 0.3s ease;
  }
 
  .homepage .active-users-frame .active-users-section .cards-frame .title {
