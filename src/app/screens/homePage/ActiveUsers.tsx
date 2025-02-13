@@ -5,14 +5,22 @@ import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-const activeUsers = [
-    { membernick: "Martin", memberImage: "/img/martin.webp" },
-    { membernick: "Justin", memberImage: "/img/justin.webp" },
-    { membernick: "Rose", memberImage: "/img/rose.webp" },
-    { membernick: "Nusret", memberImage: "/img/nusret.webp" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTopUsers } from "./selector";
+import { serverApi } from "../../../lib/config";
+import { Member } from "../../../lib/types/member";
 
-export default function ActiveUsers() {
+
+/** REDUX SLICE & SELECTOR **/
+const topUsersRetriever = createSelector(
+    retrieveTopUsers, (topUsers) => ({ topUsers })
+);
+
+export default function ActiveUsers()
+{
+    const { topUsers } = useSelector(topUsersRetriever);
+    
     return(
     <div className="active-users-frame">
         <Container>
@@ -20,22 +28,24 @@ export default function ActiveUsers() {
                 <Box className="section-title">Active users</Box>
                 <Stack className="cards-frame">
                     <CssVarsProvider>
-                        {activeUsers.length !== 0 ? (
-                            activeUsers.map((ele, index) => {
-                                return(
-                                    <Card key={index} className={"card"}>
-                                        <CardOverflow>
-                                            <AspectRatio ratio="1">
-                                                <img src={ele.memberImage} alt="user photo here" />
-                                            </AspectRatio>
-                                        </CardOverflow>
-                                        <CardCover className="card-cover" />
-                                        <Stack>
-                                            <Typography className={"title"}>
-                                                {ele.membernick}
-                                            </Typography>
-                                        </Stack>
-                                    </Card>
+                        {topUsers.length !== 0 ? (
+                                topUsers.map((member: Member) =>
+                                {
+                                    const imagePath = `${serverApi}/${member.memberImage}`;
+                                    return(
+                                        <Card key={member._id} className={"card"}>
+                                            <CardOverflow>
+                                                <AspectRatio ratio="1">
+                                                    <img src={imagePath} alt="user photo here" />
+                                                </AspectRatio>
+                                            </CardOverflow>
+                                            <CardCover className="card-cover" />
+                                            <Stack>
+                                                <Typography className={"title"}>
+                                                    {member.memberNick}
+                                                </Typography>
+                                            </Stack>
+                                        </Card>
                                 )
                             })
                         ) : (
