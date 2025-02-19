@@ -39,12 +39,13 @@ const restaurantRetriever = createSelector(
 
 interface ChosenProductsProps
 {
+  cartItems: CartItem[];
   onAdd: (item: CartItem) => void;
 }
 
 export default function ChosenProduct(props: ChosenProductsProps)
 {
-  const { onAdd } = props;
+  const { cartItems, onAdd } = props;
   const { productId } = useParams<{ productId: string }>();
   const { setRestaturant, setChosenProduct } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(chosenProductRetriever);
@@ -53,12 +54,14 @@ export default function ChosenProduct(props: ChosenProductsProps)
   useEffect(() =>
   {
     const product = new ProductService();
-    product.getProduct(productId)
+    product
+    .getProduct(productId)
       .then(data => setChosenProduct(data))
       .catch((err) => console.log(err));
     
     const member = new MemberService();
-    member.getRestaurant()
+    member
+      .getRestaurant()
       .then(data => setRestaturant(data))
       .catch((err) => console.log(err));
   }, []);
@@ -90,7 +93,7 @@ export default function ChosenProduct(props: ChosenProductsProps)
         </Stack>
         <Stack className={"chosen-product-info"}>
           <Box className={"info-box"}>
-            <strong className={"product-name"}>{chosenProduct.productName}</strong>
+            <strong className={"product-name"}>{chosenProduct?.productName}</strong>
             <span className={"resto-name"}>{restaurant?.memberNick}</span>
             <span className={"resto-name"}>{restaurant?.memberPhone}</span>
             <Box className={"rating-box"}>
@@ -111,7 +114,20 @@ export default function ChosenProduct(props: ChosenProductsProps)
               <span>${chosenProduct?.productPrice}</span>
             </div>
             <div className={"button-box"}>
-              <Button variant="contained">Add To Basket</Button>
+              <Button
+                variant="contained"
+                onClick={(e) =>
+                {
+                  onAdd({
+                    _id: chosenProduct._id,
+                    quantity: 1,
+                    name: chosenProduct.productName,
+                    price: chosenProduct.productPrice,
+                    image: chosenProduct.productImages[0],
+                  });
+                  e.stopPropagation();
+                }}
+              >Add To Basket</Button>
             </div>
           </Box>
         </Stack>
