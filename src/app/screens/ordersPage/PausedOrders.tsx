@@ -19,6 +19,8 @@ export default function PausedOrders()
 {
     const { pausedOrders } = useSelector(pausedOrdersRetriever);
 
+    /** HANDLERS */
+
     return (
         <TabPanel value={"1"}>
             <Stack>
@@ -73,6 +75,13 @@ export default function PausedOrders()
                                     color="secondary"
                                     className={"cancel-button"}>
                                     Cancel
+                                </Button>
+
+                                <Button
+                                    value={order._id}
+                                    variant="contained"
+                                    className="pay-button">
+                                    Payment
                                 </Button>
                             </Box>
                         </Box>
