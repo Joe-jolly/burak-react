@@ -19,14 +19,14 @@ const ordersPageSlice = createSlice({
         {
             state.processOrders = action.payload;
         },
-        setFinishedOrderss: (state, action) =>
+        setFinishedOrders: (state, action) =>
         {
             state.finishedOrders = action.payload;
         },
     },
 });
 
-export const { setPausedOrders, setProcessOrders, setFinishedOrderss } = ordersPageSlice.actions;
+export const { setPausedOrders, setProcessOrders, setFinishedOrders } = ordersPageSlice.actions;
 
 const OrdersPageReducer = ordersPageSlice.reducer;
 export default OrdersPageReducer;

@@ -2,29 +2,57 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TabContext from "@mui/lab/TabContext";
 import { Box, Container, Stack } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Dispatch } from "@reduxjs/toolkit";
-import { Order } from "../../../lib/types/order";
-import { setFinishedOrderss, setPausedOrders, setProcessOrders } from "./slice";
+import { Order, OrderInquiry } from "../../../lib/types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { useDispatch } from "react-redux";
 import "../../../css/order.css";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import OrderService from "../../services/OrderService";
 
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
   setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
   setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
-  setFinishedOrderss: (data: Order[]) => dispatch(setFinishedOrderss(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
 });
 
 export default function OrdersPage()
 {
-  const { setPausedOrders, setProcessOrders, setFinishedOrderss } = actionDispatch(useDispatch());
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
+  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+    page: 1,
+    limit: 5,
+    orderStatus: OrderStatus.PAUSE,
+  });
+
+  useEffect(() =>
+  {
+    const order = new OrderService();
+
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
+      .then((data) => setPausedOrders(data)).
+      catch((err) => console.log(err));
+    
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
+      .then((data) => setProcessOrders(data)).
+      catch((err) => console.log(err));
+    
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
+      .then((data) => setFinishedOrders(data)).
+      catch((err) => console.log(err));
+  }, [orderInquiry]);
 
   /** HANDLERS */
 
