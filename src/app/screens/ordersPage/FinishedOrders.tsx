@@ -1,8 +1,7 @@
+import React from "react"
+import moment from "moment";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box, Button, Stack } from "@mui/material";
-import moment from "moment";
-import React from "react"
-
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveFinishedOrders } from "./selector";
